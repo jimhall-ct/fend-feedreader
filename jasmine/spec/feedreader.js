@@ -115,27 +115,32 @@ $(function () {
      * feed from the RSS menu.
      */
     describe('New Feed Selection', function() {
+        var feed0,
+            feed1;
 
         beforeEach(function(done) {
-            // load first feed in allFeeds array
+            // load first feed from allFeeds array
             loadFeed(0, function() {
-                feed0 = document.getElementsByClassName('entry');
+                // Get the text content of the first article from the first feed
+                feed0 = document.getElementsByClassName('entry')[0].textContent;
                 console.log(feed0);
-
+                // load second feed from allFeeds array
                 loadFeed(1, function() {
-                    feed1 = document.getElementsByClassName('entry');
+                    // Get the text content of the first article from the second feed
+                    feed1 = document.getElementsByClassName('entry')[0].textContent;
                     console.log(feed1);
                     done();
                 });
             });
         });
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* Test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
         it('loads new content', function(done) {
-            expect(true).toBe(true);
+            // Compare the text content from the first article for each feed
+            expect(feed0).not.toEqual(feed1);
             done();
         });
     });
