@@ -71,7 +71,7 @@ $(function () {
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
-        it('becomes visible when clicked', function () {
+        it('becomes visible when menu icon is clicked', function () {
             var menuLink = document.getElementsByClassName('menu-icon-link');
             menuLink[0].click();
             var hideClass = document.body.getAttribute('class');
@@ -83,7 +83,6 @@ $(function () {
 
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
     /*
      * This suite is for testing what happens when the page first loads.
      */
