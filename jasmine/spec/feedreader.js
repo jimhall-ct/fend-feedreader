@@ -31,19 +31,19 @@ $(function () {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        it('have URL defined', function() {
-             allFeeds.forEach(function(feed) {
-                 expect(feed.url).toBeDefined();
-                 expect(feed.url).not.toBe('');
-             });
+        it('have URL defined', function () {
+            allFeeds.forEach(function (feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url).not.toBe('');
+            });
         });
 
         /* Test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        it('have name defined', function() {
-            allFeeds.forEach(function(feed) {
+        it('have name defined', function () {
+            allFeeds.forEach(function (feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBe('');
             });
@@ -54,14 +54,14 @@ $(function () {
      * This suite is for testing the sliding menu used to display all
      * the available RSS feeds.
      */
-    describe('The menu', function() {
+    describe('The menu', function () {
 
         /* Test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it('is hidden by default', function() {
+        it('is hidden by default', function () {
             var hideClass = document.body.getAttribute('class');
             expect(hideClass).toContain('menu-hidden');
         });
@@ -71,7 +71,7 @@ $(function () {
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
-        it('becomes visible when clicked', function() {
+        it('becomes visible when clicked', function () {
             var menuLink = document.getElementsByClassName('menu-icon-link');
             menuLink[0].click();
             var hideClass = document.body.getAttribute('class');
@@ -87,11 +87,11 @@ $(function () {
     /*
      * This suite is for testing what happens when the page first loads.
      */
-    describe('Initial Entries', function() {
+    describe('Initial Entries', function () {
 
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             // load first feed in allFeeds array
-            loadFeed(0, function() {
+            loadFeed(0, function () {
                 done();
             });
         });
@@ -114,21 +114,19 @@ $(function () {
      * This suite is for testing what happens when you select a new
      * feed from the RSS menu.
      */
-    describe('New Feed Selection', function() {
+    describe('New Feed Selection', function () {
         var feed0,
             feed1;
 
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             // load first feed from allFeeds array
-            loadFeed(0, function() {
+            loadFeed(0, function () {
                 // Get the text content of the first article from the first feed
                 feed0 = document.getElementsByClassName('entry')[0].textContent;
-                console.log(feed0);
                 // load second feed from allFeeds array
-                loadFeed(1, function() {
+                loadFeed(1, function () {
                     // Get the text content of the first article from the second feed
                     feed1 = document.getElementsByClassName('entry')[0].textContent;
-                    console.log(feed1);
                     done();
                 });
             });
@@ -138,7 +136,7 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        it('loads new content', function(done) {
+        it('loads new content', function (done) {
             // Compare the text content from the first article for each feed
             expect(feed0).not.toEqual(feed1);
             done();
