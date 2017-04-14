@@ -119,18 +119,25 @@ $(function () {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        it('contain at least one entry', function () {
+        it('contain at least one entry (JS)', function () {
             var feedContainer = document.getElementsByClassName('feed');
             var entries = feedContainer[0].getElementsByClassName('entry');
             expect(entries.length).toBeGreaterThan(0);
         });
+
+        it('contain at least one entry (jQuery)', function () {
+            var entries = $('.feed .entry');
+            console.log(entries);
+            expect(entries.length).toBeGreaterThan(0);
+        });
+
     });
 
     /*
      * This suite is for testing what happens when you select a new
      * feed from the RSS menu.
      */
-    describe('New Feed Selection', function () {
+    describe('New Feed Selection (JS)', function () {
         var feed0,
             feed1;
 
@@ -143,6 +150,36 @@ $(function () {
                 loadFeed(1, function () {
                     // Get the text content of the first article from the second feed
                     feed1 = document.getElementsByClassName('entry')[0].textContent;
+                    done();
+                });
+            });
+        });
+
+        /* Test that ensures when a new feed is loaded
+         * by the loadFeed function that the content actually changes.
+         * Remember, loadFeed() is asynchronous.
+         */
+        it('loads new content', function () {
+            // Compare the text content from the first article for each feed
+            expect(feed0).not.toEqual(feed1);
+        });
+    });
+
+    describe('New Feed Selection (jQuery)', function () {
+        var feed0,
+            feed1;
+
+        beforeEach(function (done) {
+            // load first feed from allFeeds array
+            loadFeed(0, function () {
+                // Get the text content of the first article from the first feed
+                feed0 = $('.entry:first').text();
+                console.log(feed0);
+                // load second feed from allFeeds array
+                loadFeed(1, function () {
+                    // Get the text content of the first article from the second feed
+                    feed1 = $('.entry:first').text();
+                    console.log(feed1);
                     done();
                 });
             });
