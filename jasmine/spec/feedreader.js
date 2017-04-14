@@ -54,16 +54,21 @@ $(function () {
      * This suite is for testing the sliding menu used to display all
      * the available RSS feeds.
      */
-    describe('The menu', function () {
+    describe('The Menu', function () {
 
         /* Test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        it('is hidden by default', function () {
+        it('is hidden by default (JS)', function () {
             var hideClass = document.body.getAttribute('class');
             expect(hideClass).toContain('menu-hidden');
+        });
+
+        it('is hidden by default (jQuery)', function () {
+            var hiddenClass = $('body').hasClass('menu-hidden');
+            expect(hiddenClass).toBe(true);
         });
 
         /* Test that ensures the menu changes
@@ -71,7 +76,7 @@ $(function () {
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
-        it('becomes visible when menu icon is clicked', function () {
+        it('becomes visible when menu icon is clicked (JS)', function () {
             var menuLink = document.getElementsByClassName('menu-icon-link');
             menuLink[0].click();
             var hideClass = document.body.getAttribute('class');
@@ -79,6 +84,16 @@ $(function () {
             menuLink[0].click();
             hideClass = document.body.getAttribute('class');
             expect(hideClass).toContain('menu-hidden');
+        });
+
+        it('becomes visible when menu icon is clicked (jQuery)', function () {
+            var menuLink = $('.menu-icon-link');
+            menuLink.click();
+            var hiddenClass = $('body').hasClass('menu-hidden');
+            expect(hiddenClass).toBe(false);
+            menuLink.click();
+            hiddenClass = $('body').hasClass('menu-hidden');
+            expect(hiddenClass).toBe(true);
         });
 
     });
@@ -90,9 +105,12 @@ $(function () {
 
         beforeEach(function (done) {
             // load first feed in allFeeds array
-            loadFeed(0, function () {
-                done();
-            });
+            // Since callback function only contains one call to done, it can
+            // be shortened to loadFeed(0, done); instead of commented out code
+            loadFeed(0, done);
+            // loadFeed(0, function () {
+            //     done();
+            // });
         });
 
         /* Test that ensures when the loadFeed
@@ -101,11 +119,10 @@ $(function () {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        it('contain at least one entry', function (done) {
+        it('contain at least one entry', function () {
             var feedContainer = document.getElementsByClassName('feed');
             var entries = feedContainer[0].getElementsByClassName('entry');
             expect(entries.length).toBeGreaterThan(0);
-            done();
         });
     });
 
@@ -135,10 +152,9 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        it('loads new content', function (done) {
+        it('loads new content', function () {
             // Compare the text content from the first article for each feed
             expect(feed0).not.toEqual(feed1);
-            done();
         });
     });
 }());
