@@ -16,13 +16,20 @@ Open "index.html" in your browser
 
 * The Menu
 
-    * is hidden by default
-    * becomes visible when menu icon is clicked
+    * is hidden by default (JS)
+    * is hidden by default (jQuery)
+    * becomes visible when menu icon is clicked (JS)
+    * becomes visible when menu icon is clicked (jQuery)
 
 * Initial Entries
 
-    * contains at least one entry
+    * contains at least one entry (JS)
+    * contains at least one entry (jQuery)
 
-* New Feed Selection
+* New Feed Selection (JS)
+
+    * loads new content
+
+* New Feed Selection (jQuery)
 
     * loads new content
